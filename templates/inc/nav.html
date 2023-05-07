@@ -1,7 +1,8 @@
+{% load static %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href=#>
-        {% comment %} <img src={% static 'images/logo.svg' %} alt="Bootstrap" width="30" height="24"> {% endcomment %}
+      <a class="navbar-brand" href={% url 'home:home' %}>
+        <img src={% static 'img/digikala-2.svg' %} alt="Bootstrap" width="30" height="24">
         WebStore
     </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
