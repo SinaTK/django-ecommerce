@@ -5,8 +5,27 @@
     <link  rel="stylesheet" href={% static 'home/style.css' %}>
 {% endblock extra_headers %}
     
-
+{% block title %}
+    | Home
+{% endblock title %}
 
 {% block content %}
-    <h3> Hi, I'm Sina </h3>
+    <div class="container">
+        <div class="row">
+        {% for product in products %}
+        <div class="col">
+        <div class="card" style="width: 18rem;">
+            {% comment %} <a href={% url 'home:details_page' product.id product.slug %}> {% endcomment %}
+            <a href={{product.get_absolute_url}}>
+            <img src={{product.image.url}} class="card-img-top" ></a>
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
+
+
