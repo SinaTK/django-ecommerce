@@ -147,3 +147,4 @@ AWS_STORAGE_BUCKET_NAME = 'django-eshop-sinatk'
 AWS_SERVICE_NAME = 's3' 
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
+AWS_LOCAL_STORAGE = '{}/aws/'.format(BASE_DIR)

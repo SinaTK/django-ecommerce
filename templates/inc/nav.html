@@ -22,9 +22,12 @@
                     <a class="nav-link active" aria-current="page" href=#>Profile</a>
                 </li>
             {% endif %}
+            {% if user.is_admin %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">About</a>
+                <a class="nav-link active" aria-current="page" href={% url 'home:bucket_home' %}>Bucket</a>
             </li>
+            {% endif %}
+            
         </ul>
         <form action=# method='get' class="d-flex">
             <button class="btn btn-outline-success btn-sm" type="submit">Search</button>

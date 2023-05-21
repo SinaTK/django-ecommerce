@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="mb-3" style="border: 1px;">    
+        <h2>Upload yor picture</h2>
+        <form method='post'class='col-md-5'>
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-info">Upload</button>
+        </form>       
+    <div>
+
+{% endblock content %}
