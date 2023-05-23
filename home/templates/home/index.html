@@ -10,14 +10,30 @@
 {% endblock title %}
 
 {% block content %}
+  
     <div class="container">
+        {% for category in categories %}
+        <div class="btn-group">
+        <a href={{ category.get_absolute_url }} type="button" class="btn btn-info">{{category.name}}</a>
+        <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu">
+            {% for cat in category.scategory.all %}
+                <li><a class="dropdown-item" href={{ cat.get_absolute_url }}>{{cat.name}}</a></li>
+            {% endfor %}
+        </ul>
+        </div>
+        {% comment %} <a href={{ category.get_absolute_url }} type="button" class="btn btn-info">{{category.name}}</a> {% endcomment %}
+        {% endfor %}
+        <br><br>
         <div class="row">
         {% for product in products %}
         <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; height: 22rem;">
             {% comment %} <a href={% url 'home:details_page' product.id product.slug %}> {% endcomment %}
             <a href={{product.get_absolute_url}}>
-            <img src={{product.image.url}} class="card-img-top" ></a>
+            <img src={{product.image.url}} class="card-img-top" style="width: 18rem; height: 19rem;"></a>
             <div class="card-body">
                 <h5 class="card-title">{{product.name}}</h5>
             </div>

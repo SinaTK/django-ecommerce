@@ -3,6 +3,7 @@ from home.models import Category, Product
 
 class ProductAdmin(admin.ModelAdmin):
     exclude = ['slug']
+    raw_id_fields = ('category',)
 
 class CategoryAdmin(admin.ModelAdmin):
     exclude = ['slug']

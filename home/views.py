@@ -1,14 +1,21 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
-from .models import Product
+from .models import Product, Category
 from home import tasks
 from django.contrib import messages
 from home.forms import UploadObj
+from utils import IsAdminUserMixin
+
 
 class HomeView(View):
-    def get(self, request):
+    def get(self, request, category_slug=None):
         products = Product.objects.all()
-        context = {'products':products}
+        categories = Category.objects.filter(is_sub=False)
+        if category_slug:
+            cat = Category.objects.get(slug=category_slug)
+            products = products.filter(category=cat)
+        
+        context = {'products':products, 'categories':categories}
         return render(request, 'home/index.html', context)
     
 class DetailsView(View):
@@ -17,7 +24,7 @@ class DetailsView(View):
         context = {'product': product}
         return render(request, 'home/details_page.html', context)
     
-class BucketHome(View):
+class BucketHome(IsAdminUserMixin, View):
     template_name = 'home/bucket.html'
  
     def get(self, request):
@@ -26,19 +33,19 @@ class BucketHome(View):
         return render(request, self.template_name, context)
     
 
-class DeleteBucketObject(View):
+class DeleteBucketObject(IsAdminUserMixin, View):
     def get(self, request, key):
         tasks.delete_bucket_object_task.delay(key)
         messages.success(request, 'The object will be delete soon.', 'info')
         return redirect('home:bucket_home')
     
-class DownloadBucketObject(View):
+class DownloadBucketObject(IsAdminUserMixin, View):
     def get(self, request, key):
         tasks.download_bucket_object_task.delay(key)
         messages.success(request, 'The object will be download soon.', 'info')
         return redirect('home:bucket_home')
 
-class UploadBucketObject(View):
+class UploadBucketObject(IsAdminUserMixin, View):
     class_form = UploadObj
     template_name = 'home/upload_obj.html'
 

@@ -2,6 +2,7 @@ from django import forms
 from accounts.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from .models import OTPcode
 
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)
@@ -50,6 +51,7 @@ class UserRegisterForm(forms.Form):
             raise ValidationError('Invalid phone number')
         if User.objects.filter(phone_number=phone_number).exists():
             raise ValidationError('This phone number already used')
+        OTPcode.objects.filter(phone_number=phone_number).delete()
         return phone_number
     
     def clean_password2(self):
