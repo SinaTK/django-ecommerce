@@ -5,6 +5,7 @@ from home import tasks
 from django.contrib import messages
 from home.forms import UploadObj
 from utils import IsAdminUserMixin
+from orders.forms import CartAddForm
 
 
 class HomeView(View):
@@ -21,7 +22,8 @@ class HomeView(View):
 class DetailsView(View):
     def get(self, request, id, slug):
         product = get_object_or_404(Product, pk=id, slug=slug)
-        context = {'product': product}
+        form = CartAddForm()
+        context = {'product': product, 'form': form}
         return render(request, 'home/details_page.html', context)
     
 class BucketHome(IsAdminUserMixin, View):

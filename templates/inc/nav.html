@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href={% url 'home:home' %}>
-        <img src={% static 'img/digikala-2.svg' %} alt="Bootstrap" width="30" height="24">
+        <img src={% static 'img/digikala-2.svg' %} alt="Bootstrap" width="30" height="30">
         WebStore
     </a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -29,6 +29,9 @@
                 <a class="nav-link active" aria-current="page" href={% url 'home:bucket_home' %}>Bucket</a>
             </li>
             {% endif %}
+            <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href={% url 'orders:cart' %}><img src={% static 'img/cart-icon.svg' %} alt="Bootstrap" width="30" height="24">{{cart|length}}</a>
+              </li>
             
         </ul>
         <form action=# method='get' class="d-flex">

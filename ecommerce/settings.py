@@ -37,8 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # local apps
     'home.apps.HomeConfig',
     'accounts.apps.AccountsConfig',
+    'orders.apps.OrdersConfig',
+
+    # third party apps
     'storages',
     'django_celery_beat',
 ]
@@ -66,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'orders.context_proccessors.cart'
             ],
         },
     },
@@ -149,3 +155,8 @@ AWS_SERVICE_NAME = 's3'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_LOCAL_STORAGE = '{}/aws/'.format(BASE_DIR)
+
+
+# Zarin pal
+MERCHANT = "00000000-0000-0000-0000-000000000000"
+SANDBOX = True

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+    | Order details
+{% endblock title %}
+
+{% block content %}
+    <h3>Order Checkout</h3>
+    <p>total price: {{order.get_total_price}}</p>
+    <a href={% url 'orders:pay_order' order.id %} class='btn btn-info'>Pay</a>
+    <br>
+    
+    <form method='post' action={% url 'orders:apply_coupon' order.id %} class='col-md-5'>
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn btn-primary">Apply</button>
+    </form>
+{% endblock content %}
