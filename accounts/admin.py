@@ -1,3 +1,4 @@
+from typing import Any, Optional
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from accounts.forms import UserChangeForm, UserCreationForm
@@ -10,10 +11,11 @@ class UserAdmin(BaseUserAdmin):
 
     list_display = ['email', 'full_name', 'is_admin']
     list_filter = ['is_admin']
+    readonly_fields = ['last_login']
 
     fieldsets =[
         (None, {'fields':('phone_number', 'email', 'full_name', 'password')}),
-        ('permisions', {'fields':('is_admin', 'is_active')}),
+        ('permisions', {'fields':('is_admin', 'is_active', 'is_superuser', 'last_login', 'groups', 'user_permissions')}),
     ]
 
     add_fieldsets = [
@@ -22,11 +24,18 @@ class UserAdmin(BaseUserAdmin):
 
     search_fields = ["email", 'full_name']
     ordering = ["full_name"]
-    filter_horizontal = []
+    filter_horizontal = ['groups', 'user_permissions']
+
+    def get_form(self, request, obj = None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        is_superuser = request.user.is_superuser
+        if not is_superuser:
+            form.base_fields['is_superuser'].disabled = True
+        return form
 
 class OTPcodeAdmin(admin.ModelAdmin):
     list_display = ['phone_number', 'code', 'created']
 
-admin.site.unregister(Group)
+
 admin.site.register(User, UserAdmin)
 admin.site.register(OTPcode)

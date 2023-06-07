@@ -1,12 +1,15 @@
+from typing import Any
+from django import http
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from home.models import Product
 from .models import Order, OrderItem, Coupon
 from orders.forms import CartAddForm, CouponForm
 from orders.cart import Cart
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
 import datetime
 import requests
 import json
@@ -18,7 +21,15 @@ class CartView(View):
         context = {'cart': cart}
         return render(request, 'orders/cart.html', context)
     
-class AddToCartView(View):
+# class AddToCartView(PermissionRequiredMixin, View):
+#     permission_required = 'orders.add_rdre'
+    
+    # def dispatch(self, request, *args, **kwargs):           # if add product need to permission
+    #     if not request.user.has_perm('orders.add_rdre'):
+    #         raise PermissionDenied()
+    #     return super().dispatch(request, *args, **kwargs)
+
+class AddToCartView(View):    
     def post(self, request, product_id):
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
@@ -69,9 +80,7 @@ class ApplyCouponView(LoginRequiredMixin, View):
             order.discount = coupon.discount
             order.save()
             
-        return redirect('orders:order_details', order_id)
-
-            
+        return redirect('orders:order_details', order_id)        
 
 
 # sandbox merchant 

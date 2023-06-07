@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # third party apps
     'storages',
     'django_celery_beat',
+    'ckeditor'
 ]
 
 MIDDLEWARE = [
@@ -85,11 +86,25 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ecommerce',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432'
     }
 }
 
+# CASHES details
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -160,3 +175,12 @@ AWS_LOCAL_STORAGE = '{}/aws/'.format(BASE_DIR)
 # Zarin pal
 MERCHANT = "00000000-0000-0000-0000-000000000000"
 SANDBOX = True
+
+
+# ckeditor config
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+}
