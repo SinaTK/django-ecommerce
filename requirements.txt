@@ -18,11 +18,13 @@ django-ckeditor==6.5.1
 django-js-asset==2.0.0
 django-storages==1.13.2
 django-timezone-field==5.0
+gunicorn==21.2.0
 hiredis==2.2.3
 idna==3.4
 jmespath==1.0.1
 kavenegar==1.1.2
 kombu==5.2.4
+packaging==23.1
 Pillow==9.5.0
 prompt-toolkit==3.0.38
 psycopg2-binary==2.9.6
