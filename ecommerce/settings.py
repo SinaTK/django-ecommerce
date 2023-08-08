@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-dhphw*zu6u3)a7n_a0tacv67=h$+z10ygl7)6$#51(xc2)usvk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,7 +90,8 @@ DATABASES = {
         'NAME': 'ecommerce',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'HOST': 'postgres',
+        #'HOST': '127.0.0.1', # for run with docker
         'PORT': '5432'
     }
 }
@@ -158,7 +159,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "accounts.User"
 
 # Arvan Cloud Storage
-# DEAULF_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 STORAGES = {"default": {"BACKEND": "storages.backends.s3boto3.S3Boto3Storage"},
             "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"}
             }
