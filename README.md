@@ -14,3 +14,4 @@ This is an online shop whit site whit facilities like:
 - **Redis** for handle of caching
 
 and finally the hole of project and it's requirements has been dockerized for easy deploying of any server.
+In addition bootstarp used for fornt end of site.
