@@ -178,7 +178,6 @@ SANDBOX = True
 
 
 # ckeditor config
-
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
